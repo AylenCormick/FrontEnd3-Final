@@ -29,7 +29,7 @@ const Navbar = () => {
           </ul>
         </nav>
 
-      {/* Deberan implementar ademas la logica para cambiar de Theme con el button */}
+      {/* Deberan implementar ademas la logica para cambiar de Theme con el button*/}
       <button>Change theme</button>
 
         <Routes>
