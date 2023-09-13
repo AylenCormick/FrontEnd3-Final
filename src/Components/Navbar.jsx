@@ -1,4 +1,6 @@
 import React from 'react'
+import Contact from '../Routes/Contact';
+import Favs from '../Routes/Favs';
 import {
   BrowserRouter as Router,
   Route,
@@ -7,6 +9,7 @@ import {
   useNavigate,
   useParams,
 } from "react-router-dom";
+import Home from '../Routes/Home';
 
 //Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
 
@@ -18,7 +21,7 @@ const Navbar = () => {
         <nav>
           <ul>
             <li>
-              <Link to="/">Inicio</Link>
+              <Link to="/home">Inicio</Link>
             </li>
             <li>
               <Link to="/contact">Contacto</Link>
@@ -33,9 +36,9 @@ const Navbar = () => {
       <button>Change theme</button>
 
         <Routes>
-          <Route path='/home' element={<h2>Inicio</h2>}/>
-          <Route path='/contact' element={<h2>Contacto</h2>}/>
-          <Route path='/favs' element={<h2>Destacados</h2>}/>
+          <Route path='/home' element={<Home/>}/>
+          <Route path='/contact' element={<Contact/>}/>
+          <Route path='/favs' element={<Favs/>}/>
         </Routes>
       </div>
     </Router>
