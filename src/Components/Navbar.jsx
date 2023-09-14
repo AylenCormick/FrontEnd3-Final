@@ -2,7 +2,6 @@ import React, { useContext } from 'react'
 import Contact from '../Routes/Contact';
 import Favs from '../Routes/Favs';
 import {
-  BrowserRouter as Router,
   Route,
   Link,
   Routes
