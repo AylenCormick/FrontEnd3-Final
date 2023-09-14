@@ -1,23 +1,31 @@
-import React from 'react'
+import React, { useContext } from 'react'
 import Contact from '../Routes/Contact';
 import Favs from '../Routes/Favs';
 import {
   BrowserRouter as Router,
   Route,
   Link,
-  Routes,
-  useNavigate,
-  useParams,
+  Routes
 } from "react-router-dom";
 import Home from '../Routes/Home';
+import { ContextGlobal } from './utils/global.context';
+import Detail from '../Routes/Detail';
 
 //Este componente debera ser estilado como "dark" o "light" dependiendo del theme del Context
 
 const Navbar = () => {
+  
+  const {state, dispatch} = useContext(ContextGlobal);
+
+  const handleTheme = () => {
+    if (state.background === "white") {dispatch({type: "DARK"})}
+    if (state.background === "black") {dispatch({type: "LIGHT"})}
+  } 
+
   return (
-    <Router>
+
+    <div className='App'>
         {/* Aqui deberan agregar los liks correspondientes a las rutas definidas */}
-      <div className='App'>
         <nav>
           <ul>
             <li>
@@ -30,18 +38,19 @@ const Navbar = () => {
               <Link to="/favs">Destacados</Link>
             </li>
           </ul>
+        <button onClick={handleTheme} className='themeButton'>Change theme</button>
         </nav>
 
       {/* Deberan implementar ademas la logica para cambiar de Theme con el button*/}
-      <button>Change theme</button>
 
         <Routes>
           <Route path='/home' element={<Home/>}/>
           <Route path='/contact' element={<Contact/>}/>
           <Route path='/favs' element={<Favs/>}/>
+          <Route path='/detail/:id' element={<Detail/>}/>
         </Routes>
       </div>
-    </Router>
+
   )
 }
 

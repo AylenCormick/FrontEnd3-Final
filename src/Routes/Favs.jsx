@@ -5,12 +5,16 @@ import Card from "../Components/Card";
 
 const Favs = () => {
 
+  const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+
+
   return (
     <>
       <h1>Dentists Favs</h1>
       <div className="card-grid">
-        {/* este componente debe consumir los destacados del localStorage */}
-        {/* Deberan renderizar una Card por cada uno de ellos */}
+        {favorites.map((fav) => (
+          <Card key={fav.id} id={fav.id} name={fav.name} username={fav.username}/>
+        ))}
       </div>
     </>
   );
