@@ -19,22 +19,29 @@ const Form = () => {
   }
 
   const [mensj, setMensj] = useState(0);
+  const [formularioEnviado, setFormularioEnviado] = useState(false);
 
   const handleSubmit = (e) => {
     e.preventDefault();
 
     if (contacto.nombre.length > 4 && regexEmail.test(contacto.email)) {
       setMensj(1);
-      setContacto({
-        nombre: "",
-        email: ""
-      })
+      setFormularioEnviado(true);
+      document.querySelector("form").reset();
+      setTimeout(() => {
+        setContacto({
+          nombre: "",
+          email: ""
+        });
+        setMensj(0);
+        setFormularioEnviado(false);
+      }, 3000); 
     } else {
       setMensj(-1);
     }
+  };
 
-    document.querySelector("form").reset()
-  }
+  
 
   return (
     <div>

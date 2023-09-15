@@ -6,13 +6,11 @@ const themeReducer = (state, action) => {
   switch(action.type) {
       case "LIGHT":
           return {
-            font: "black",
-            background: "white"
+            clase: ""
           };
       case "DARK":
           return {
-            font: "white",
-            background: "black"};
+            clase: "dark"};
       default: 
           return state;
   }
@@ -23,7 +21,7 @@ export const ContextGlobal = createContext();
 export const ContextProvider = ({ children }) => {
   //Aqui deberan implementar la logica propia del Context, utilizando el hook useMemo
 
-  const initialState = {font: "black", background: "white"};
+  const initialState = {clase:""};
 
   const [state, dispatch] = useReducer(themeReducer, initialState);
 

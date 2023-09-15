@@ -1,38 +1,55 @@
 import React from "react";
-import { useState } from "react";
 import { Link } from "react-router-dom";
+
+import { useReducer, useEffect } from 'react';
+
+const initialState = {isFavorite: false};
+
+const favoriteReducer = (state, action) => {
+  switch (action.type) {
+    case 'ADD_FAVORITE':
+      return { isFavorite: true };
+    default:
+      return state;
+  }
+};
 
 const Card = ({ name, username, id }) => {
 
-  const [isFavorite, setIsFavorite] = useState(false);
+  const [state, dispatch] = useReducer(favoriteReducer, initialState);
 
-    const addFav = () => {
+  useEffect(() => {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const isAlreadyFavorite = favorites.some((favorite) => favorite.id === id);
+    if (isAlreadyFavorite) {
+      dispatch({ type: 'ADD_FAVORITE' });
+    }
+  }, [id]);
 
-      const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
-  
-      const isAlreadyFavorite = favorites.some((favorite) => favorite.id === id);
-  
-      if (!isAlreadyFavorite) {
-        const newFavorite = { id, name, username };
-        favorites.push(newFavorite);
-  
-        localStorage.setItem('favorites', JSON.stringify(favorites));
-        setIsFavorite(true);
-      }
-    };
+  const addFav = () => {
+    const favorites = JSON.parse(localStorage.getItem('favorites')) || [];
+    const isAlreadyFavorite = favorites.some((favorite) => favorite.id === id);
+    if (!isAlreadyFavorite) {
+      const newFavorite = { id, name, username };
+      favorites.push(newFavorite);
 
-    return (
-      <div className="card">
-        <Link key={id} to={`/detail/${id}`}>
-          <img src="../images/doctor.jpg" alt="" />
-          <h2>{name}</h2>
-          <h3>{username}</h3>
-        </Link>
-        <button onClick={addFav} className="favButton">
-          {isFavorite ? 'Added to Favorites' : 'Add to Favorites'}
-        </button>
-      </div>
-    );
+      localStorage.setItem('favorites', JSON.stringify(favorites));
+      dispatch({ type: 'ADD_FAVORITE' });
+    }
   };
+
+  return (
+    <div className="card">
+      <Link key={id} to={`/detail/${id}`}>
+        <img src="../images/doctor.jpg" alt="" />
+        <h2>{name}</h2>
+        <h3>{username}</h3>
+      </Link>
+      <button onClick={addFav} className="favButton">
+        {state.isFavorite ? 'Destacado' : 'Agregar a destacados'}
+      </button>
+    </div>
+  );
+};
 
 export default Card;

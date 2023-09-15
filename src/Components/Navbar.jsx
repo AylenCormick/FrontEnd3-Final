@@ -17,13 +17,13 @@ const Navbar = () => {
   const {state, dispatch} = useContext(ContextGlobal);
 
   const handleTheme = () => {
-    if (state.background === "white") {dispatch({type: "DARK"})}
-    if (state.background === "black") {dispatch({type: "LIGHT"})}
+    if (state.clase === "") {dispatch({type: "DARK"})}
+    if (state.clase === "dark") {dispatch({type: "LIGHT"})}
   } 
 
   return (
 
-    <div className='App'>
+    <div className={state.clase}>
         {/* Aqui deberan agregar los liks correspondientes a las rutas definidas */}
         <nav>
           <ul>

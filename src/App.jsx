@@ -8,7 +8,7 @@ function App() {
   const {state, dispatch} = useContext(ContextGlobal);
 
   return (
-      <div className="App" style={{backgroundColor: state.background, color: state.font}}>
+      <div className= {state.clase}>
           <Navbar/>
           <Footer/>
       </div>
